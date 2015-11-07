@@ -21,9 +21,11 @@ Bundle 'Shougo/neocomplete.vim.git'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'jistr/vim-nerdtree-tabs.git'
 Bundle 'scrooloose/nerdtree.git'
+Bundle 'mattn/emmet-vim'
 
 call vundle#end()            " required
 filetyp plugin indent on     " required!
+autocmd FileType python set omnifunc=pythoncomplete#Complete   
 
 " Brief help
 " :BundleList          - list configured bundles
@@ -37,6 +39,20 @@ filetyp plugin indent on     " required!
 syntax enable
 syntax on
 
+
+"python相关的配置
+"自动添加文件头
+function HeaderPython()
+    call setline(1, "#!/usr/bin/env python")
+    call append(1, "#coding=utf-8")
+    call append(2, "#author :zhouxiaolong")
+    call append(3, "#" . strftime('%Y-%m-%d %T', localtime()))
+    normal G
+    normal o
+    normal o
+endf
+
+autocmd bufnewfile *.py call HeaderPython()
 "go相关的配置
 let g:fencview_autodetect=1
 let g:go_disable_autoinstall = 0
@@ -75,7 +91,7 @@ let g:rehash256 = 1
 
 " 设置NerdTree
 map <C-n> :NERDTreeToggle<CR>
-"autocmd VimEnter * NERDTree
+autocmd VimEnter * NERDTree
 let NERDChristmasTree=1
 let NERDTreeAutoCenter=1
 let NERDTreeMouseMode=2
@@ -85,7 +101,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=31
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeIgnore = ['\.pyc', '\.mod\.c', '\.o', '\.ko', '\.a', '\.so', 'CMakeFiles', '\.cmake', 'CMakeCache.txt']
+let NERDTreeIgnore = ['\.swp','\.pyc', '\.mod\.c', '\.o', '\.ko', '\.a', '\.so', 'CMakeFiles', '\.cmake', 'CMakeCache.txt']
 "}}}
 
 
@@ -205,3 +221,13 @@ function ClosePair(char)
         return a:char
     endif
 endf
+
+
+let g:user_emmet_mode='n'    "only enable normal mode functions.
+let g:user_emmet_mode='inv'  "enable all functions, which is equal to
+let g:user_emmet_mode='a'    "enable all function in all mode.
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+
+
