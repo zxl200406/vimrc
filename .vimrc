@@ -56,7 +56,7 @@ set shell=/bin/bash
 set wildmenu
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set hlsearch
-set mouse=a
+set mouse=v
 set cuc cul  "这个就是十字架
 set incsearch
 set autoindent
