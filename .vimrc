@@ -17,13 +17,14 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'jistr/vim-nerdtree-tabs.git'
 Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/nerdtree.git'
-"Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/AutoClose'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-surround'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'hyiltiz/vim-plugins-profile'
+Bundle 'tpope/vim-commentary'
+
 
 call vundle#end()            " required
 filetyp plugin indent on     " required!
@@ -34,6 +35,8 @@ filetyp plugin indent on     " required!
 
 syntax enable
 syntax on
+
+let mapleader=","
 
 "go相关的配置
 let g:fencview_autodetect=1
@@ -46,8 +49,6 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:godef_split=3
 au BufRead,BufNewFile *.go set filetype=go
-au FileType go nmap <Leader>s <Plug>(go-implements)
-
 
 
 "全局设置
@@ -55,7 +56,7 @@ set shell=/bin/bash
 set wildmenu
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set hlsearch
-set mouse=n
+set mouse=a
 set cuc cul  "这个就是十字架
 set incsearch
 set autoindent
@@ -77,7 +78,6 @@ set guioptions-=R
 
 set guioptions-=m "禁止工具栏`
 set guioptions-=T 
-let mapleader=","
 "
 "颜色方案 
 "https://github.com/tomasr/molokai/
@@ -154,8 +154,6 @@ nnoremap <Leader>kw <C-W>k
 nnoremap <Leader>jw <C-W>j
 
 nnoremap <Leader>hw <C-W>h
-nmap <Leader>q :q!<CR>
-nmap <Leader>w :w!<CR>
 " 跳转至右方的窗口"
 nnoremap <Leader>rr <C-W>l
 " 跳转至左方的窗口
@@ -165,13 +163,18 @@ nnoremap <Leader>tt <C-W>k
 " 跳转至下方的子窗口
 nnoremap <Leader>dd <C-W>j
 
+"这里很重要，因为不能复制，只能通过快捷键才能复制数据
+"从外面把数据copy到vim直接leader v
+"从vim把数据copy到剪贴板，在v模式下选中,leader +c
+nmap <leader>v "+gp
+vmap <leader>c "+y
+""
 
 nmap <Leader>q :q!<CR>
 nmap <Leader>w :w!<CR>
 nmap <Leader>wq :wq!<CR>
 nmap <Leader>pa %
 imap <leader>jj <ESC>
-
 
 " python 的配置,其它都删除了，就这二个有用
 let g:jedi#goto_command = "<leader>gdp"
@@ -187,5 +190,30 @@ function HeaderPython()
     normal o
 endf
 autocmd bufnewfile *.py call HeaderPython()
+
+map <Leader><Leader>d <Plug>(easymotion-j)
+map <Leader><Leader>t <Plug>(easymotion-k)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+
+
+" vim-surround
+nmap <Leader>sl yss
+nmap <Leader>sw ysiw
+nmap <Leader>sr cs 
+nmap <Leader>sdl ds 
+
+
+"Visual 模式下 gc 命令可以注释选中的行
+"普通模式下 gcc 指令可以快速注释一行
+"gcu可以撤销注释
+autocmd FileType python,shell set commentstring=#\ %s                 " 设置Python注释字符
+autocmd FileType mako set cms=##\ %s"
+
 
 
