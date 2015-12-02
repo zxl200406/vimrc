@@ -55,7 +55,7 @@ au BufRead,BufNewFile *.go set filetype=go
 set wildmenu
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set hlsearch
-set mouse=v
+set mouse=a
 set cuc cul  "这个就是十字架
 set incsearch
 set autoindent
@@ -88,15 +88,15 @@ let g:rehash256 = 1
 
 " 设置NerdTree
 map <C-n> :NERDTreeToggle<CR>
-"autocmd VimEnter * NERDTree
-""let NERDChristmasTree=1
-""let NERDTreeAutoCenter=1
-""let NERDTreeMouseMode=2
-""let NERDTreeShowFiles=1
-""let NERDTreeShowHidden=1
-""let NERDTreeShowLineNumbers=1
-""let NERDTreeWinPos='left'
-""let NERDTreeWinSize=31
+""autocmd VimEnter * NERDTree
+" let NERDChristmasTree=1
+" let NERDTreeAutoCenter=1
+" let NERDTreeMouseMode=2
+" let NERDTreeShowFiles=1
+" let NERDTreeShowHidden=1
+" let NERDTreeShowLineNumbers=1
+" let NERDTreeWinPos='left'
+" let NERDTreeWinSize=31
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore = ['\.swp','\.pyc', '\.mod\.c', '\.o', '\.ko', '\.a', '\.so', 'CMakeFiles', '\.cmake', 'CMakeCache.txt']
 "}}}
@@ -145,13 +145,13 @@ inoremap <c-w> <left>
 
 nnoremap nw <C-W><C-W>
 " 跳转至右方的窗口"
-nnoremap <Leader>rr <C-W>l
+nnoremap <Leader>r <C-W>l
 " 跳转至左方的窗口
-nnoremap <Leader>ll <C-W>h
+nnoremap <Leader>l <C-W>h
 " 跳转至上方的子窗口
-nnoremap <Leader>tt <C-W>k
+nnoremap <Leader>t <C-W>k
 " 跳转至下方的子窗口
-nnoremap <Leader>dd <C-W>j
+nnoremap <Leader>b <C-W>j
 
 "这里很重要，因为不能复制，只能通过快捷键才能复制数据
 "从外面把数据copy到vim直接leader v
@@ -212,3 +212,10 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
+set clipboard+=unnamed 
+"vim buffer相关的
+noremap <left> gt
+noremap <right> gT 
+map <leader>tn :tabnew
+map <leader>tc :tabclose<cr>
