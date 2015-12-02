@@ -7,7 +7,6 @@ call vundle#begin()
 
 "vim插件管理
 Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
@@ -24,7 +23,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'hyiltiz/vim-plugins-profile'
 Bundle 'tpope/vim-commentary'
-
+Bundle 'kien/ctrlp.vim'
 
 call vundle#end()            " required
 filetyp plugin indent on     " required!
@@ -38,6 +37,8 @@ syntax on
 
 let mapleader=","
 "go相关的配置
+highlight Pmenu    guibg=darkgrey  guifg=black
+highlight PmenuSel guibg=lightgrey guifg=black
 let g:fencview_autodetect=1
 let g:go_disable_autoinstall = 0
 let g:go_fmt_command = "goimports"
@@ -204,5 +205,10 @@ nmap <Leader>sdl ds
 autocmd FileType python,shell set commentstring=#\ %s                 " 设置Python注释字符
 autocmd FileType mako set cms=##\ %s"
 
-
-
+"ctrlp
+nnoremap <leader>fp :CtrlP<CR>
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
