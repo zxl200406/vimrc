@@ -37,7 +37,6 @@ syntax enable
 syntax on
 
 let mapleader=","
-
 "go相关的配置
 let g:fencview_autodetect=1
 let g:go_disable_autoinstall = 0
@@ -52,7 +51,6 @@ au BufRead,BufNewFile *.go set filetype=go
 
 
 "全局设置
-set shell=/bin/bash
 set wildmenu
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set hlsearch
@@ -75,7 +73,6 @@ set guioptions-=l "禁止显示滚动条
 set guioptions-=L
 set guioptions-=r
 set guioptions-=R
-
 set guioptions-=m "禁止工具栏`
 set guioptions-=T 
 "
@@ -146,14 +143,6 @@ inoremap <c-e> <right>
 inoremap <c-w> <left>
 
 nnoremap nw <C-W><C-W>
-" 跳转至左方的窗口
-nnoremap <Leader>hw <C-W>h
-" 跳转至上方的子窗口
-nnoremap <Leader>kw <C-W>k
-" 跳转至下方的子窗口
-nnoremap <Leader>jw <C-W>j
-
-nnoremap <Leader>hw <C-W>h
 " 跳转至右方的窗口"
 nnoremap <Leader>rr <C-W>l
 " 跳转至左方的窗口
