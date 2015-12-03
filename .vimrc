@@ -10,13 +10,14 @@ Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
+Bundle 'vim-scripts/a.vim'
 Bundle 'L9'
 Bundle 'fatih/vim-go'
+Bundle 'majutsushi/tagbar'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'jistr/vim-nerdtree-tabs.git'
 Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/nerdtree.git'
-Bundle 'vim-scripts/AutoClose'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-surround'
@@ -37,8 +38,6 @@ syntax on
 
 let mapleader=","
 "go相关的配置
-highlight Pmenu    guibg=darkgrey  guifg=black
-highlight PmenuSel guibg=lightgrey guifg=black
 let g:fencview_autodetect=1
 let g:go_disable_autoinstall = 0
 let g:go_fmt_command = "goimports"
@@ -49,8 +48,6 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:godef_split=3
 au BufRead,BufNewFile *.go set filetype=go
-
-
 "全局设置
 set wildmenu
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
@@ -76,7 +73,31 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=m "禁止工具栏`
 set guioptions-=T 
-"
+set backspace=indent,eol,start
+
+
+
+"tagbar  and  ctags在一起配置了 
+nnoremap <silent> <F3> :TagbarToggle<CR>  
+map <F2> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+"修改ctrl+]为gd,和golang里的设置是一样的,ycm转到相应的头文件是gh,参看ycm的修改
+nnoremap gd <C-]>
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Use_Right_Window=1
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
+autocmd BufReadPost *.*  call tagbar#autoopen()
+set tags+=tags
+set tags+=~/.vim/tags
+"在~/.vim/目录下执行ctags --c-kinds=+px --c++-kinds=+px --fields=+iafksS --extra=+qf -R /usr/include/* /usr/local/include/*,也就是头文件头目录
+
+
+"a.vim 作用是在.h和.cpp之间切换,编译c++好用
+nmap <Leader>sh :A<CR>
+
+
+
+
 "颜色方案 
 "https://github.com/tomasr/molokai/
 "文件放到~/.vim/colors/molokai.vim
@@ -127,7 +148,7 @@ let g:ycm_complete_in_comments = 1    "在注释输入中也能补全
 let g:ycm_complete_in_strings = 1     "在字符串输入中也能补全
 let g:ycm_seed_identifiers_with_syntax = 1                  " 语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 inoremap <leader>; <C-x><C-o>
-nnoremap <leader>gh :YcmCompleter GoToDeclaration<CR>
+nnoremap gh :YcmCompleter GoToDeclaration<CR>
 inoremap <expr> <CR>       pumvisible()?"\<C-Y>":"\<CR>"
 inoremap <expr> <C-J>      pumvisible()?"\<PageDown>\<C-N>\<C-P>":"\<C-X><C-O>"
 inoremap <expr> <C-K>      pumvisible()?"\<PageUp>\<C-P>\<C-N>":"\<C-K>"
@@ -153,11 +174,8 @@ nnoremap <Leader>t <C-W>k
 " 跳转至下方的子窗口
 nnoremap <Leader>b <C-W>j
 
-"这里很重要，因为不能复制，只能通过快捷键才能复制数据
-"从外面把数据copy到vim直接leader v
-"从vim把数据copy到剪贴板，在v模式下选中,leader +c
-nmap <leader>v "+gp
-vmap <leader>c "+y
+"这里yy共享剪贴板数据
+set clipboard+=unnamed 
 ""
 
 nmap <Leader>q :q!<CR>
@@ -181,6 +199,8 @@ function HeaderPython()
 endf
 autocmd bufnewfile *.py call HeaderPython()
 
+map <Leader>ef <Plug>(easymotion-lineforward)
+map <Leader>eb <Plug>(easymotion-linebackward)
 map <Leader><Leader>d <Plug>(easymotion-j)
 map <Leader><Leader>t <Plug>(easymotion-k)
 map  / <Plug>(easymotion-sn)
@@ -198,7 +218,6 @@ nmap <Leader>sw ysiw
 nmap <Leader>sr cs 
 nmap <Leader>sdl ds 
 
-
 "Visual 模式下 gc 命令可以注释选中的行
 "普通模式下 gcc 指令可以快速注释一行
 "gcu可以撤销注释
@@ -206,14 +225,12 @@ autocmd FileType python,shell set commentstring=#\ %s                 " 设置Py
 autocmd FileType mako set cms=##\ %s"
 
 "ctrlp
-nnoremap <leader>fp :CtrlP<CR>
+nnoremap <leader>cp :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
-
-set clipboard+=unnamed 
 "vim buffer相关的
 noremap <left> gt
 noremap <right> gT 
