@@ -82,6 +82,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[[ -s /Users/zhouxiaolong/.autojump/etc/profile.d/autojump.sh ]] && source /Users/zhouxiaolong/.autojump/etc/profile.d/autojump.sh
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 source ./.bashrc
 source ./.bash_profile
