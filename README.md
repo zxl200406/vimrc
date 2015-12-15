@@ -5,6 +5,9 @@ git clone https://github.com/zxl200406/vimrc.git ~/zsh_home
 cd ~/zsh_home   
 然后执行sh install.sh
 安装autojump，python install.py   
+查看目录   
+chsh -l   
+chsh -s /bin/zsh
 
 ###macos
 如果在mac上面已经安装了vim或macvim,请先卸载掉   
