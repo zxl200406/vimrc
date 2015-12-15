@@ -166,13 +166,13 @@ inoremap <c-w> <left>
 
 nnoremap nw <C-W><C-W>
 " 跳转至右方的窗口"
-nnoremap <Leader>r <C-W>l
+nnoremap <Leader>l <C-W>l
 " 跳转至左方的窗口
-nnoremap <Leader>l <C-W>h
+nnoremap <Leader>h <C-W>h
 " 跳转至上方的子窗口
-nnoremap <Leader>t <C-W>k
+nnoremap <Leader>k <C-W>k
 " 跳转至下方的子窗口
-nnoremap <Leader>b <C-W>j
+nnoremap <Leader>j <C-W>j
 
 "这里yy共享剪贴板数据
 set clipboard+=unnamed 

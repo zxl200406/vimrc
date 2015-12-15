@@ -135,5 +135,6 @@ This builds both LLVM and Clang for debug mode.
 最终执行： ./install.sh --clang-completer --system-libclang  --omnisharp-completer  --gocode-completer  剩下的就是等待了
 
 
-
+###autojump
+记带当前目录下的autojump，python install.py
 
