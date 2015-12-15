@@ -1,4 +1,11 @@
 #vim
+
+###使用
+git clone https://github.com/zxl200406/vimrc.git ~/zsh_home   
+cd ~/zsh_home   
+然后执行sh install.sh
+安装autojump，python install.py   
+
 ###macos
 如果在mac上面已经安装了vim或macvim,请先卸载掉   
 * brew uninstall vim
@@ -134,7 +141,4 @@ This builds both LLVM and Clang for debug mode.
 
 最终执行： ./install.sh --clang-completer --system-libclang  --omnisharp-completer  --gocode-completer  剩下的就是等待了
 
-
-###autojump
-记带当前目录下的autojump，python install.py
 
