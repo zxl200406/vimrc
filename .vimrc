@@ -48,6 +48,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:godef_split=3
 au BufRead,BufNewFile *.go set filetype=go
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gb <Plug>(go-build)
 "全局设置
 set wildmenu
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
@@ -183,6 +185,11 @@ nmap <Leader>w :w!<CR>
 nmap <Leader>wq :wq!<CR>
 nmap <Leader>pa %
 imap <leader>jj <ESC>
+
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 " python 的配置,其它都删除了，就这二个有用
 let g:jedi#goto_command = "<leader>gdp"

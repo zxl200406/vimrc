@@ -85,3 +85,4 @@ source $ZSH/oh-my-zsh.sh
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 source ./.bashrc
 source ./.bash_profile
+source /etc/profile
