@@ -8,12 +8,12 @@ call vundle#begin()
 "vim插件管理
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'vim-scripts/a.vim'
 Bundle 'L9'
 Bundle 'fatih/vim-go'
 Bundle 'majutsushi/tagbar'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'matze/vim-move'
+Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'jistr/vim-nerdtree-tabs.git'
 Bundle 'mattn/emmet-vim'
@@ -63,66 +63,53 @@ set showmatch
 set ruler
 set wrap
 set expandtab
+set ts=4
 set softtabstop=4
 set shiftwidth=4
 set ignorecase "大小写敏感
-setlocal noswapfile 
-set bufhidden=hide 
+setlocal noswapfile
+set bufhidden=hide
 set gcr=a:block-blinkon0 "禁止光标闪烁
 set guioptions-=l "禁止显示滚动条
 set guioptions-=L
 set guioptions-=r
 set guioptions-=R
 set guioptions-=m "禁止工具栏`
-set guioptions-=T 
+set guioptions-=T
 set backspace=indent,eol,start
 
 
+"颜色方案
+"https://github.com/tomasr/molokai/
+"文件放到~/.vim/colors/molokai.vim
+colorscheme  molokai
+set t_Co=256
+let g:molokai_original = 1
+let g:rehash256 = 1
 
-"tagbar  and  ctags在一起配置了 
-nnoremap <silent> <F3> :TagbarToggle<CR>  
-map <F2> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "修改ctrl+]为gd,和golang里的设置是一样的,ycm转到相应的头文件是gh,参看ycm的修改
 nnoremap gd <C-]>
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_Use_Right_Window=1
-autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
-autocmd BufReadPost *.*  call tagbar#autoopen()
+autocmd BufReadPost *.cpp,*.go,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
+
 set tags+=tags
 set tags+=~/.vim/tags
 "在~/.vim/目录下执行ctags --c-kinds=+px --c++-kinds=+px --fields=+iafksS --extra=+qf -R /usr/include/* /usr/local/include/*,也就是头文件头目录
 
 
-"a.vim 作用是在.h和.cpp之间切换,编译c++好用
-nmap <Leader>sh :A<CR>
 
 
 
 
-"颜色方案 
-"https://github.com/tomasr/molokai/
-"文件放到~/.vim/colors/molokai.vim
-colorscheme  molokai
-set t_Co=256  
-let g:molokai_original = 1
-let g:rehash256 = 1
 
 
 " 设置NerdTree
-map <C-n> :NERDTreeToggle<CR>
-""autocmd VimEnter * NERDTree
-" let NERDChristmasTree=1
-" let NERDTreeAutoCenter=1
-" let NERDTreeMouseMode=2
-" let NERDTreeShowFiles=1
-" let NERDTreeShowHidden=1
-" let NERDTreeShowLineNumbers=1
-" let NERDTreeWinPos='left'
-" let NERDTreeWinSize=31
+map <Leader>tn :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore = ['\.swp','\.pyc', '\.mod\.c', '\.o', '\.ko', '\.a', '\.so', 'CMakeFiles', '\.cmake', 'CMakeCache.txt']
-"}}}
+
 
 "开启语法检查
 
@@ -134,14 +121,14 @@ let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
 
-let g:syntastic_check_on_open = 1  
-let g:syntastic_cpp_include_dirs = ['/usr/include/','/usr/local/include']  
-let g:syntastic_cpp_remove_include_errors = 1  
-let g:syntastic_cpp_check_header = 1  
-let g:syntastic_cpp_compiler = 'clang++'  
-let g:syntastic_error_symbol = 'x'  
-let g:syntastic_warning_symbol = '!'  
-let g:syntastic_enable_balloons = 1  
+let g:syntastic_check_on_open = 1
+let g:syntastic_cpp_include_dirs = ['/usr/include/','/usr/local/include']
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_error_symbol = 'x'
+let g:syntastic_warning_symbol = '!'
+let g:syntastic_enable_balloons = 1
 " YCM config
 set completeopt=longest,menu	"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -154,7 +141,7 @@ nnoremap gh :YcmCompleter GoToDeclaration<CR>
 inoremap <expr> <CR>       pumvisible()?"\<C-Y>":"\<CR>"
 inoremap <expr> <C-J>      pumvisible()?"\<PageDown>\<C-N>\<C-P>":"\<C-X><C-O>"
 inoremap <expr> <C-K>      pumvisible()?"\<PageUp>\<C-P>\<C-N>":"\<C-K>"
-inoremap <expr> <C-U>      pumvisible()?"\<C-E>":"\<C-U>" 
+inoremap <expr> <C-U>      pumvisible()?"\<C-E>":"\<C-U>"
 nmap <F5> :YcmDiags<CR>
 
 
@@ -177,7 +164,7 @@ nnoremap <Leader>k <C-W>k
 nnoremap <Leader>j <C-W>j
 
 "这里yy共享剪贴板数据
-set clipboard+=unnamed 
+set clipboard+=unnamed
 ""
 
 nmap <Leader>q :q!<CR>
@@ -193,7 +180,7 @@ inoremap <C-l> <Right>
 
 " python 的配置,其它都删除了，就这二个有用
 let g:jedi#goto_command = "<leader>gdp"
-autocmd FileType python set omnifunc=pythoncomplete#Complete   
+autocmd FileType python set omnifunc=pythoncomplete#Complete
 "自动添加文件头
 function HeaderPython()
     call setline(1, "#!/usr/bin/env python")
@@ -220,10 +207,10 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 
 " vim-surround
-nmap <Leader>sl yss
-nmap <Leader>sw ysiw
-nmap <Leader>sr cs 
-nmap <Leader>sdl ds 
+" nmap <Leader>sl yss
+" nmap <Leader>sw ysiw
+" nmap <Leader>sr cs
+" nmap <Leader>sdl ds
 
 "Visual 模式下 gc 命令可以注释选中的行
 "普通模式下 gcc 指令可以快速注释一行
@@ -239,7 +226,14 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "vim buffer相关的
-noremap <left> gt
-noremap <right> gT 
-map <leader>tn :tabnew
-map <leader>tc :tabclose<cr>
+
+"tagbar  and  ctags在一起配置了
+map <F2> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap  <leader>tt :TagbarToggle<CR>
+
+"vim-move
+let g:move_key_modifier = 'C'
+
+
+" Default mapping
+let g:multi_cursor_use_default_mapping=0
