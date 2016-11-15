@@ -22,9 +22,9 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-surround'
 Bundle 'davidhalter/jedi-vim'
-Bundle 'hyiltiz/vim-plugins-profile'
 Bundle 'tpope/vim-commentary'
 Bundle 'kien/ctrlp.vim'
+
 
 call vundle#end()            " required
 filetyp plugin indent on     " required!
@@ -38,6 +38,7 @@ syntax on
 
 let mapleader=","
 "go相关的配置
+"
 let g:fencview_autodetect=1
 let g:go_disable_autoinstall = 0
 let g:go_fmt_command = "goimports"
@@ -87,28 +88,28 @@ set t_Co=256
 let g:molokai_original = 1
 let g:rehash256 = 1
 
-"修改ctrl+]为gd,和golang里的设置是一样的,ycm转到相应的头文件是gh,参看ycm的修改
-nnoremap gd <C-]>
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
-let Tlist_Use_Right_Window=1
 autocmd BufReadPost *.cpp,*.go,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
-set tags+=tags
-set tags+=~/.vim/tags
+
+set tag=./tags;,../tags
+
+
 "在~/.vim/目录下执行ctags --c-kinds=+px --c++-kinds=+px --fields=+iafksS --extra=+qf -R /usr/include/* /usr/local/include/*,也就是头文件头目录
 
-
-
-
+"golang
+let g:go_fmt_command = "gofmt"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 
 
 
 " 设置NerdTree
 map <Leader>tn :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeIgnore = ['\.swp','\.pyc', '\.mod\.c', '\.o', '\.ko', '\.a', '\.so', 'CMakeFiles', '\.cmake', 'CMakeCache.txt']
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 
 "开启语法检查
@@ -134,9 +135,11 @@ set completeopt=longest,menu	"让Vim的补全菜单行为与一般IDE一致(参�
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0      "关闭加载.ycm_extra_conf.py提示
 let g:ycm_complete_in_comments = 1    "在注释输入中也能补全
+let g:ycm_collect_identifiers_tags_files=1
 let g:ycm_complete_in_strings = 1     "在字符串输入中也能补全
 let g:ycm_seed_identifiers_with_syntax = 1                  " 语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
-inoremap <leader>; <C-x><C-o>
+"nnoremap gd :YcmCompleter GoToDefinition<CR>
+nnoremap gd <C-]>
 nnoremap gh :YcmCompleter GoToDeclaration<CR>
 inoremap <expr> <CR>       pumvisible()?"\<C-Y>":"\<CR>"
 inoremap <expr> <C-J>      pumvisible()?"\<PageDown>\<C-N>\<C-P>":"\<C-X><C-O>"
@@ -216,7 +219,6 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 "普通模式下 gcc 指令可以快速注释一行
 "gcu可以撤销注释
 autocmd FileType python,shell set commentstring=#\ %s                 " 设置Python注释字符
-autocmd FileType mako set cms=##\ %s"
 
 "ctrlp
 nnoremap <leader>cp :CtrlP<CR>
@@ -228,8 +230,8 @@ let g:ctrlp_custom_ignore = {
 "vim buffer相关的
 
 "tagbar  and  ctags在一起配置了
-map <F2> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 nnoremap  <leader>tt :TagbarToggle<CR>
+
 
 "vim-move
 let g:move_key_modifier = 'C'

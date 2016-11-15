@@ -3,8 +3,8 @@
 #author :zhouxiaolong
 #2015-12-15 21:00:05
 
-import os   
-import ycm_core   
+import os
+import ycm_core
 flags = [
 '-Wall',
 '-Wextra',
@@ -31,13 +31,12 @@ flags = [
 # For a C project, you would set this to 'c' instead of 'c++'.
 '-x',
 'c++',
+'c',
 '-isystem','/System/Library/Frameworks/Python.framework/Headers',
 '-isystem','/usr/include',
 '-isystem','/usr/local/include',
-'-isystem','/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1',
-'-isystem','/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/6.1.0/include',
-'-isystem','/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include',
-'-isystem','/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include',
+'-isystem','/usr/local/opt/openssl/include',
+'-isystem','/usr/local/opt/openssl/include/openssl',
 
 # This path will only work on OS X, but extra paths that don't exist are not
 # harmful
